@@ -115,3 +115,64 @@ long text chunks under 3800 gpt tokens. Please keep the texts ordinal.
 
 Don't forget to make a commit for time tracking!
 
+
+
+
+-------------------------------------
+## APPENDIX
+```python
+class RecursiveCharacterTextSplitter(TextSplitter):
+    """Implementation of splitting text that looks at characters.
+
+    Recursively tries to split by different characters to find one
+    that works.
+    """
+
+    def __init__(
+        self,
+        separators: Optional[List[str]] = None,
+        keep_separator: bool = True,
+        **kwargs: Any,
+    ) -> None:
+        """Create a new TextSplitter."""
+        super().__init__(keep_separator=keep_separator, **kwargs)
+        self._separators = separators or ["\n\n", "\n", ';', ':', " ", ""]
+
+    def _split_text(self, text: str, separators: List[str]) -> List[str]:
+        """Split incoming text and return chunks."""
+        final_chunks = []
+        # Get appropriate separator to use
+        separator = separators[-1]
+        new_separators = []
+        for i, _s in enumerate(separators):
+            if _s == "":
+                separator = _s
+                break
+            if re.search(_s, text):
+                separator = _s
+                new_separators = separators[i + 1 :]
+                break
+
+        splits = _split_text_with_regex(text, separator, self._keep_separator)
+        # Now go merging things, recursively splitting longer texts.
+        _good_splits = []
+        _separator = "" if self._keep_separator else separator
+        for s in splits:
+            if self._length_function(s) < self._chunk_size:
+                _good_splits.append(s)
+            else:
+                if _good_splits:
+                    merged_text = self._merge_splits(_good_splits, _separator)
+                    final_chunks.extend(merged_text)
+                    _good_splits = []
+                if not new_separators:
+                    final_chunks.append(s)
+                else:
+                    other_info = self._split_text(s, new_separators)
+                    final_chunks.extend(other_info)
+        if _good_splits:
+            merged_text = self._merge_splits(_good_splits, _separator)
+            final_chunks.extend(merged_text)
+        return final_chunks
+
+```
