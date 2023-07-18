@@ -20,8 +20,6 @@ langchain = "^0.0.234"
 tiktoken = "^0.4.0"
 transformers = "^4.30.2"
 isort = "^5.12.0"
-sentence-transformers = "^2.2.2"
-nltk = "^3.8.1"
 
 
 [build-system]
