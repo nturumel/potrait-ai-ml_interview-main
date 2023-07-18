@@ -43,7 +43,6 @@ def process_csv_files_gpt():
         with open(file_path, "r") as f:
             reader = csv.reader(f)
 
-            large_text_chunk: str = ""
             segmented_rows: List[str] = []
             prev_row_chunk = next(reader)[0]
             segmented_rows.append(prev_row_chunk)

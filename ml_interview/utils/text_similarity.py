@@ -3,7 +3,10 @@ from typing import List
 
 import requests
 
-from ml_interview.utils.constants import GPT_SIMILARITY_THRESHOLD_LOWER, GPT_SIMILARITY_THRESHOLD_UPPER
+from ml_interview.utils.constants import (
+    GPT_SIMILARITY_THRESHOLD_LOWER,
+    GPT_SIMILARITY_THRESHOLD_UPPER,
+)
 
 API_URL = (
     "https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2"
@@ -26,28 +29,3 @@ def compare_text(base_text: str, search_text: str) -> int:
     except Exception as e:
         print(f"An error occurred: {e}")
         return 0  # type: ignore
-
-
-def compare_and_split_text(text: str) -> List[str]:
-    texts = text.split("\n")
-    split_texts: List[str] = []
-    if len(texts) == 1:
-        return texts
-    else:
-        current_text = texts[0]
-        for i in range(1, len(texts)):
-            base_text = current_text[
-                -200:
-            ]  # Get last 200 characters of the current text
-            search_text = texts[i][-200:]  # Get last 200 characters of the next text
-            if compare_text(base_text, search_text):  # Compare the last 200 characters
-                current_text += (
-                    "\n" + texts[i]
-                )  # If similar, append to the current text
-            else:
-                split_texts.append(
-                    current_text
-                )  # If not similar, add current text to the list
-                current_text = texts[i]  # Start a new current text
-        split_texts.append(current_text)  # Add the last text to the list
-        return split_texts
