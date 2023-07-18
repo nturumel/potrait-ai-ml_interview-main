@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.autoSave": "afterDelay",
+		"flake8.args": [
+			"--max-line-length=240"
+		],
+		"black-formatter.path": [
+			"/home/nihar/.cache/pypoetry/virtualenvs/ml-interview-owMgF7Lu-py3.10/bin/black"
+		],
+		"isort.path": [
+			"/home/nihar/.cache/pypoetry/virtualenvs/ml-interview-owMgF7Lu-py3.10/bin/isort"
+		]
+	}
+}

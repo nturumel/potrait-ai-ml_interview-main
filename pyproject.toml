@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "ml-interview"
+version = "0.1.0"
+description = ""
+authors = ["connell gough <connell@portrait-analytics.com>"]
+readme = "README.md"
+packages = [{include = "ml_interview"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+bs4 = "^0.0.1"
+requests = "^2.28.2"
+xmlx = "^2.0.0"
+tokenizers = "^0.13.2"
+black = "^23.7.0"
+flake8 = "^6.0.0"
+mypy = "^1.4.1"
+bandit = "^1.7.5"
+langchain = "^0.0.234"
+tiktoken = "^0.4.0"
+transformers = "^4.30.2"
+isort = "^5.12.0"
+sentence-transformers = "^2.2.2"
+nltk = "^3.8.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+process_berkshire_letters = 'ml_interview.data.download_process_letters:main'

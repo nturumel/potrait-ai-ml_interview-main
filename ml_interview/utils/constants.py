@@ -1,0 +1,15 @@
+# Seperators
+TOKEN_SEPERATORS = ["\n\n\n", "\n\n", "\n", ";", ":", " ", ""]
+
+# BERT
+BERT_CHUNK_SIZE = 180
+BERT_CHUNK_OVERLAP = 0
+
+# GPT
+GPT_CHUNK_SIZE = 3800
+GPT_CHUNK_OVERLAP = 100
+GPT_SIMILARITY_THRESHOLD_LOWER = 0.2
+GPT_SIMILARITY_THRESHOLD_UPPER = 0.5
+
+# DATA
+DATA_DIR = "./ml_interview/data/"
